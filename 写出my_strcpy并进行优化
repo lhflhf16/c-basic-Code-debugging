@@ -1,0 +1,93 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+
+#include<stdio.h>
+#include<assert.h>
+
+////初步：可以运行，但是不够简略
+//void my_strcpy(char* desk, char* scr)
+//{
+//	while (*scr != '\0')
+//	{
+//		*desk = *scr;
+//		desk++;
+//		scr++;
+//	}
+//	*desk = *scr;
+//}
+////初步：可以运行，但是不够简略
+
+//第二步：变得更简洁了，但是出现传参为空指针时，会出错。
+//void my_strcpy(char* desk, char* scr)
+//{
+//	while (*desk++ = *scr++)
+//	{
+//		;
+//	}
+//}
+//第二步：变得更简洁了，但是出现传参为空指针时，会出错。
+
+//第三步：成功解决了空指针出错的问题，但是没有指出哪里出错了。
+//void my_strcpy(char* desk, char* scr)
+//{
+//	if (desk != NULL && scr != NULL)
+//	{
+//		while (*desk++ = *scr++)
+//		{
+//			;
+//		}
+//	}
+//}
+//第三步：成功解决了空指针出错的问题，但是没有指出哪里出错了。
+
+//第四步：能够检查出空指针带来的错误
+//void my_strcpy(char* desk, char* scr)
+//{
+//	//使用assert():断言
+//	assert(desk != NULL);//当desk等于NULL时，判断为假，则程序会执行报错，会给出具体哪个文件夹下的程序多少行出错了。
+//	assert(scr != NULL);
+//	while (*desk++ = *scr++)
+//	{
+//		;
+//	}
+//}
+////第四步：能够检查出空指针带来的错误
+
+//第五步：const修饰源字符串，使其不能被改变
+//void my_strcpy(char* desk, const char* scr)
+//{
+//	assert(desk != NULL);
+//	assert(scr != NULL);
+//	//因为const在*号左边修饰的是*scr即它不能被改变，所以while（*scr++=*desk++）是执行不了的并且可以提示出这一行出
+//	//错，方便修改
+//	while (*desk++ = *scr++)
+//	{
+//		;
+//	}
+//}
+//第五步：const修饰源字符串，使其不能被改变
+
+//第六步：设置函数返回类型为目的地数组首元素地址，使其可以进行链式访问（最终效果）
+char* my_strcpy(char* desk, const char* scr)
+{
+	//有了返回类型后(返回目的地数组的首元素地址)，my_strcpy（）函数就能直接作为其他函数的参数实现链式访问
+	//例如：printf("%s\n",my_strcpy(arr1,arr2))
+	//就可以打印出将arr2拷贝到arr1后arr1的内容。
+	char* ret = desk;
+	assert(desk != NULL);//断言
+	assert(scr != NULL);//断言
+	while (*desk++ = *scr++)//将scr指向的内容拷贝给desk
+	{
+		;
+	}
+	return ret;
+}
+//第六步：设置函数返回类型为目的地数组首元素地址，使其可以进行链式访问（最终效果）
+
+int main()
+{
+	char arr1[] = "##########";
+	char arr2[] = "bit";
+	my_strcpy(arr1, arr2);
+	printf("arr1=%s\n", arr1);
+	return 0;
+}
