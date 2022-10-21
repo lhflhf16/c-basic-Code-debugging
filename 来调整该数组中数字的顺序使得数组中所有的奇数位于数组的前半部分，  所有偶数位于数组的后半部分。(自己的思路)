@@ -1,0 +1,44 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+
+/*思路：和冒泡排序法有些相似。如果前一个元素是偶数，后一个元素是奇数，则执行交换
+两层循环：
+第一层为如果数组还存在前偶后奇则要继续交换
+第二层为每次都是从前往后判断两相邻元素是否交换*/
+#include<stdio.h>
+#include<assert.h>
+void adjust_sequence(int * arr, int sz)
+{
+	assert(arr != NULL);//断言
+	int i = 0;
+	int count = 0;
+	while (count!=(sz-1))//当count为sz-1时，说明没有偶数在奇数前，结束循环.
+	{
+		count = 0;//每次从前向后判断一次数组内容后，count要清0.
+		for (i = 0; i < sz-1; i++)
+		{
+			if ((*(arr+i)%2==0) && (*(arr+i+1)%2==1))//判断如果前面的元素为偶，后面元素为奇则交换
+			{
+				int tmp = *(arr + i);
+				*(arr + i) = *(arr + i + 1);
+				*(arr + i + 1) = tmp;
+			}
+			else
+			{
+				count++;//当没有执行交换时，则count++；当整个数组没有执行一次交换时，说明所有奇数都在偶数前面，这时count值为循环次数为sz-1.
+			}
+		}
+	}
+}
+
+int main()
+{
+	int arr[] = {1,4,2,6,3,6,6,7,4,3};
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	int i = 0;
+	adjust_sequence(arr,sz);
+	for (i = 0; i < sz; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	return 0;
+}
